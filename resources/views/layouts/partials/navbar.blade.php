@@ -2,23 +2,22 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 sticky-top shadow">
 
 <!-- Sidebar Toggle (Topbar) -->
-<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-    <i style="background-color: #ff3385;" class="fa fa-bars"></i>
+<button id="sidebarToggleTop" style="background-color: #ff63a0;" class="btn btn-link d-md-none rounded-circle mr-3">
+    <i style="color: #ffffff;" class="fa fa-bars"></i>
 </button>
 
 <!-- Topbar Search -->
-<form
-    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+<form action="{{ route('ticket.search') }}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
     <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-            aria-label="Search" aria-describedby="basic-addon2">
+        <input type="text" name="query" class="form-control bg-light border-0 small" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" value="{{ request('query') }}">
         <div class="input-group-append">
-            <button class="btn" style="background-color: #ff3385; color: white;" type="button">
-            <i class="fas fa-search"></i>
+            <button class="btn" style="background-color: #ff3385; color: white;" type="submit">
+                <i class="fas fa-search"></i>
             </button>
         </div>
     </div>
 </form>
+
 
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
@@ -32,14 +31,14 @@
         <!-- Dropdown - Messages -->
         <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
             aria-labelledby="searchDropdown">
-            <form class="form-inline mr-auto w-100 navbar-search">
+            <form action="{{ route('ticket.search') }}" method="GET" class="form-inline mr-auto w-100 navbar-search">
                 <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small"
+                    <input type="text" name="query" class="form-control bg-light border-0 small"
                         placeholder="Search for..." aria-label="Search"
                         aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn" type="button">
-                            <i class="fas fa-search fa-sm"></i>
+                        <button class="btn" type="submit">
+                            <i class="fas fa-search fa-sm"></i> 
                         </button>
                     </div>
                 </div>

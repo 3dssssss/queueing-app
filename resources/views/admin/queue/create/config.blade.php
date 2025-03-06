@@ -26,36 +26,6 @@
             </select>
             </div>
 
-            <!-- Enable QR Code for Tickets -->
-            <!-- <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Enable QR Code for Tickets</label>
-                <div class="mt-2">
-                    <label class="inline-flex items-center">
-                        <input type="radio" name="qr-code" value="yes" class="form-radio text-blue-600" checked>
-                        <span class="ml-2">Yes</span>
-                    </label>
-                    <label class="inline-flex items-center ml-6">
-                        <input type="radio" name="qr-code" value="no" class="form-radio text-blue-600">
-                        <span class="ml-2">No</span>
-                    </label>
-                </div>
-            </div> -->
-
-            <!-- Auto-Assign Ticket Numbers -->
-            <!-- <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Auto-Assign Ticket Numbers</label>
-                <div class="mt-2">
-                    <label class="inline-flex items-center">
-                        <input type="radio" name="auto-assign" value="yes" class="form-radio text-blue-600" checked>
-                        <span class="ml-2">Yes</span>
-                    </label>
-                    <label class="inline-flex items-center ml-6">
-                        <input type="radio" name="auto-assign" value="no" class="form-radio text-blue-600">
-                        <span class="ml-2">No</span>
-                    </label>
-                </div>
-            </div> -->
-
             <!-- Ticket Expiry Time -->
             <div class="mb-4">
                 <label for="ticket-expiry-time" class="block text-sm font-medium text-gray-700">Ticket Expiry Time (in minutes)</label>

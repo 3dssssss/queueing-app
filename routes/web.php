@@ -9,7 +9,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserTicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\CounterController;
+use App\Http\Controllers\AdminCounterController;
 use App\Models\Setting;
 use App\Models\UserTicket;
 
@@ -177,14 +177,29 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 });
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
-    // Route::get('user/counter', [UserTicketController::class, 'viewCounter'])
-    //     ->name('admin.user.counter');
-
     Route::get('/user/counter', [UserTicketController::class, 'showTicketsByCounter'])
         ->name('admin.user.counter');
 
 });
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/search', [UserTicketController::class, 'search'])
+        ->name('ticket.search');
+});
+
 Route::post('/admin/queue/toggleAll', [QueueController::class, 'toggleAllQueues'])->name('admin.queue.toggleAll');
+
+Route::post('/admin/user/update-status', [UserTicketController::class, 'updateStatus'])->name('admin.user.updateStatus');
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/staff/counter-management', [AdminCounterController::class, 'index'])->name('admin.staff.counter.index');
+    Route::put('/staff/counter-management/{id}', [AdminCounterController::class, 'update'])->name('admin.staff.counter.update');
+    Route::post('/staff/counter-management/staff', [AdminCounterController::class, 'storeStaff'])->name('admin.staff.store');
+
+});
+
+
+
 
 
 

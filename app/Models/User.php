@@ -48,4 +48,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function routeNotificationForVonageSms($notification)
+    {
+    return $this->phone;
+    }
+
+
 }

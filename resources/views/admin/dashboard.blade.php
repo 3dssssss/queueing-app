@@ -87,13 +87,11 @@
         </div>
     </div>
 </div>
-
-
 </div>
 
 <script>
     function toggleAllQueues(event) {
-        event.preventDefault(); // Prevents page reload
+        event.preventDefault();
 
         let button = document.getElementById('queueToggleBtn');
         let text = document.getElementById('queueToggleText');
@@ -109,10 +107,10 @@
         .then(data => {
             if (data.status === "paused") {
                 text.innerText = "Resume All Queues";
-                button.style.backgroundColor = "#4CAF50"; // Green for Resume
+                button.style.backgroundColor = "#4CAF50";
             } else {
                 text.innerText = "Pause All Queues";
-                button.style.backgroundColor = "#ff3385"; // Pink for Pause
+                button.style.backgroundColor = "#ff3385";
             }
         })
         .catch(error => console.error("Error:", error));

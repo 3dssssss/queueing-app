@@ -14,9 +14,10 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    <a class="nav-link" href="{{ url('admin/dashboard') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+    <a class="nav-link d-flex align-items-center hover-indicator" href="{{ url('admin/dashboard') }}">
+        <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
+        <span class="flex-grow-1">Dashboard</span>
+    </a>
 </li>
 
 <!-- Divider -->
@@ -29,10 +30,10 @@
 
 <!-- Nav Item - Queue Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQueue"
+    <a class="nav-link collapsed d-flex align-items-center hover-indicator" href="#" data-toggle="collapse" data-target="#collapseQueue"
         aria-expanded="true" aria-controls="collapseQueue">
-        <i class="fas fa-walking"></i>
-        <span>Manage Queues</span>
+        <i class="fas fa-walking mr-2"></i>
+        <span class="flex-grow-1">Manage Queues</span>
     </a>
     <div id="collapseQueue" class="collapse" aria-labelledby="headingQueue" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
@@ -43,22 +44,53 @@
     </div>
 </li>
 
-<!-- Nav Item - User Collapse Menu -->
+<!-- Nav Item - Counter Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+    <a class="nav-link collapsed d-flex align-items-center hover-indicator" href="#" data-toggle="collapse" data-target="#collapseUser"
         aria-expanded="true" aria-controls="collapseUser">
-        <i class="fas fa-users"></i>
-        <span>Manage Users</span>
+        <img class="w-5 h-5 mr-2" src="{{ asset('images/counter.png') }}" alt="Counter Icon">
+        <span class="flex-grow-1">Manage Counter</span>
     </a>
     <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">User Management:</h6>
-            <a class="collapse-item" href="{{ url('admin/user/view-user') }}">Users</a>
-            <a class="collapse-item" href="{{ url('admin/user/counter') }}">Counters</a>
+            <h6 class="collapse-header">Counter Management:</h6>
+            <a class="collapse-item" href="{{ url('admin/user/counter') }}">View Counters</a>
+            <a class="collapse-item" href="{{ url('admin/staff/counter-management') }}">Staff</a>
         </div>
     </div>
 </li>
+
+<!-- Nav Item - User -->
+<li class="nav-item">
+    <a class="nav-link d-flex align-items-center hover-indicator" href="{{ url('admin/user/view-user') }}">
+        <i class="fas fa-users mr-2"></i>
+        <span class="flex-grow-1">Users</span>
+    </a>
+</li>
+
+<!-- Styles for hover effects -->
+<style>
+    /* Hover effect: Pink highlight and left border */
+    .hover-indicator:hover {
+        background-color: rgba(255, 20, 147, 0.2); /* Light pink */
+        border-left: 4px solid white; /* White left border as an indicator */
+        transition: background-color 0.2s ease-in-out, border-left 0.2s ease-in-out;
+    }
+
+    /* Make the image light (faded) by default */
+    .nav-item img {
+        opacity: 0.5; /* 50% transparency */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    /* When hovered, make the image fully visible */
+    .hover-indicator:hover img {
+        opacity: 1; /* Fully visible */
+    }
+</style>
+
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

@@ -9,6 +9,8 @@ use App\Models\Queue;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\UserTurnNotification;
+use App\Models\User;
 
 
 
@@ -90,8 +92,8 @@ public function display()
 
  public function view()
  {
-     $user = UserTicket::all();
-     return view('admin.user.view-user', compact('user'));
+    $tickets = UserTicket::with('user')->get();
+    return view('admin.user.view-user', compact('tickets'));
  }
 
  public function viewCounter()
@@ -136,7 +138,7 @@ public function getFilteredTickets(Request $request)
                 // Show tickets that are expired
                 return $query->where('expires_at', '<', $now);
             } elseif ($statusFilter == 'waiting') {
-                // Show tickets that are not expired (waiting or in progress)
+                // Show tickets that are not expired (waiting or active)
                 return $query->where('expires_at', '>', $now);
             }
         })
@@ -185,10 +187,54 @@ public function checkUserStatus()
         case 'active':
             return redirect()->route('display-counter');
         case 'completed':
-            return redirect()->route('display-completed'); // Ensure this route exists
+            return redirect()->route('display-completed');
         default:
             return redirect()->route('display');
     }
+}
+
+public function updateTicketStatus(Request $request, $ticketId)
+    {
+        $ticket = UserTicket::find($ticketId);
+
+        if (!$ticket) {
+            return response()->json(['error' => 'Ticket not found'], 404);
+        }
+
+        // Update the status
+        $ticket->status = $request->status;
+        $ticket->save();
+
+        if ($request->status === 'active') {
+            $this->notifyUserTurn($ticket);
+        }
+
+        return response()->json(['message' => 'Ticket status updated successfully']);
+    }
+
+    private function notifyUserTurn($ticket)
+    {
+        $user = User::find($ticket->user_id);
+        if ($user) {
+            dd([
+                'sending_sms_to' => $user->phone,
+                'ticket_number' => $ticket->ticket_number,
+                'queue_name' => $ticket->queue_name
+            ]);
+
+        $user->notify(new UserTurnNotification($ticket));
+    }
+    }
+
+    public function search(Request $request)
+{
+    $query = $request->input('query'); // Get the search input
+
+    $tickets = UserTicket::where('ticket_number', 'LIKE', "%{$query}%")
+                        ->with('user') // This loads user data
+                        ->get();
+
+    return view('admin.user.view-user', compact('tickets', 'query'));
 }
 
 // public function showTicketStatus()
@@ -196,7 +242,7 @@ public function checkUserStatus()
 //     $ticket = UserTicket::where('user_id', auth()->id())->first();
 
 //     if ($ticket && $ticket->status == 'active') {
-//         session()->flash('status_notification', 'It\'s your turn! Your ticket is now in progress.');
+//         session()->flash('status_notification', 'It\'s your turn! Your ticket is now active.');
 //     }
 
 //     return view('user.ticket-status', compact('ticket'));

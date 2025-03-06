@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Queue;
 use App\Models\UserTicket;
 use Illuminate\Http\Request;
+use App\Notifications\UserTurnNotification;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -166,6 +168,22 @@ public function toggleAllQueues(Request $request)
     // Return updated status as JSON response
     return response()->json(['status' => $newStatus]);
 }
+
+public function notifyUserTurn($ticketId)
+{
+    $ticket = UserTicket::find($ticketId);
+    
+    if ($ticket) {
+        $user = User::find($ticket->user_id);
+        if ($user) {
+            $user->notify(new UserTurnNotification($ticket));
+            return response()->json(['message' => 'User notified successfully']);
+        }
+    }
+
+    return response()->json(['message' => 'Ticket or user not found'], 404);
+}
+
 
 // public function showProceedModal()
 // {

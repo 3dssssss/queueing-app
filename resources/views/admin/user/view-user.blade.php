@@ -57,10 +57,18 @@
         </div>
     @endif
 
-    
+    @if(isset($query))
+    <div class="bg-pink-100 text-pink-800 border border-pink-300 rounded-lg px-4 py-2 mb-4 shadow-md">
+        <p class="font-semibold">
+            Search results for: 
+            <span class="text-pink-600 font-bold">"{{ $query }}"</span>
+        </p>
+    </div>
+@endif
+
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-black uppercase bg-pink-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -87,7 +95,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach ($user as $user)
+        @foreach ($tickets as $user)
 <tr class="odd:bg-blue-100 odd:dark:bg-blue-900 even:bg-green-100 even:dark:bg-green-800 border-b dark:border-gray-700 border-gray-200" 
                 data-status="{{ $user->status }}" data-expires-at="{{ $user->expires_at }}">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -243,10 +251,7 @@
         }
     }
 </script>
-
-
-
-
+ 
     <script>
     $('#statusModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);  
